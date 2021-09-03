@@ -1,0 +1,39 @@
+# Heroku Kafka Properties
+server:
+  port: ${PORT:7002}
+  servlet:
+    context-path: /
+
+spring:
+  datasource:
+    url: jdbc:postgresql://ec2-34-195-140-228.compute-1.amazonaws.com:5432/ddgnvnt3maerkp
+    username: ufuo0fpg0kb5de
+    password: p893d4d1faa91134f009b1244769df6e092138a974ce659d29c84ef4bbc14f37d
+    driver-class-name: org.postgresql.Driver
+    
+    tomcat:
+      initial-size: 2
+     
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    show-sql: ${HIBERNATE_SHOW_SQL:true}
+    properties:
+      hibernate:
+        generate_statistics: ${HIBERNATE_STATISTICS:false}
+        temp:
+          use_jdbc_metadata_defaults: false
+
+integrador:
+  service:
+    name: integrador-service
+    url: ${INTEGRADOR_URL:https://develop-integrador-contabil.herokuapp.com}
+
+salesforce:
+  service:
+    name: salesforce-service
+    url: ${SALES_FORCE_URL:https://api-salesforce-client.herokuapp.com}
+
+chave-acesso-client: ${CHAVE_CLIENT:ottimizza}
