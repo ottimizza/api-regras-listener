@@ -114,6 +114,7 @@ public class RegraMapper {
     	
     	SFParticularidade s = SFParticularidade.builder()
     			.RecordTypeId(SFParticularidade.RECORD_TYPE_ID)
+				.ID_Externo__c(grupoRegra.getId().toString())
     			.Roteiro__c(grupoRegra.getIdRoteiro())
     			.Conta_Movimento__c(grupoRegra.getContaMovimento())
     			.Se_Campo__c(regras.get(0).getCampo())
