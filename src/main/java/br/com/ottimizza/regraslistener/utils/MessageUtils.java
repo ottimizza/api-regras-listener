@@ -22,7 +22,7 @@ public class MessageUtils {
 		if(message.contains("message")) {
 			String s = message.substring(message.indexOf("message"));
             if(s.contains("{") && s.contains("}")) {
-                ids = s.substring(s.indexOf("{") + 1, s.lastIndexOf("}")).trim();
+                ids = s.substring(s.indexOf("{") + 1, s.lastIndexOf("}") -1).trim();
             }
             gruposRegrasIds = Arrays.asList(ids.split(","));
 		}
