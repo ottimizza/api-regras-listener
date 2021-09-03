@@ -20,7 +20,7 @@ public class KafkaConsumers {
 	@Autowired
 	RegraService service;
     
-    @KafkaListener(topics = "#{kafkaProperties.getPrefix()}ottimizza.exportar_regrasoud", 
+    @KafkaListener(topics = "#{kafkaProperties.getPrefix()}ottimizza.exportar.regras.oud", 
             	   groupId = "#{kafkaProperties.getPrefix()}tareffa-queue-events-group")
     public void integraArquivo(@Payload String message) throws JsonProcessingException, JsonMappingException {
     	
