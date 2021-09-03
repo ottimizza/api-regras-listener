@@ -14,7 +14,7 @@ import br.com.ottimizza.regraslistener.domain.dto.salesforce.SFParticularidade;
 @FeignClient(name = "${salesforce.service.name}", url = "${salesforce.service.url}")
 public interface SalesForceClient {
     
-	@PostMapping("/api/v1/salesforce/listener/{chave}/composite/tree/Roteiros_vs_Contas__c")
+	@PostMapping("integra/v1/salesforce/{chave}/composite/tree/Roteiros_vs_Contas__c")
 	public ResponseEntity<String> upsertRegrasLote(@PathVariable("chave") String chave,
 												   @RequestBody List<SFParticularidade> particularidades);
 

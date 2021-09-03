@@ -50,7 +50,8 @@ public class RegraService {
             grupoRegra.setRegras(regras);
             particularidades.add(RegraMapper.toSalesForce(grupoRegra));
         }
-        salesForceClient.upsertRegrasLote(CHAVE_FEIGN_CLIENT, particularidades);
+        System.out.println("Particularidade: "+particularidades.toString());
+        //salesForceClient.upsertRegrasLote(CHAVE_FEIGN_CLIENT, particularidades);
         
     }
    

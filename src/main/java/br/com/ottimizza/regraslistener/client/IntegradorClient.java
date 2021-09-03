@@ -16,13 +16,13 @@ import br.com.ottimizza.regraslistener.domain.dto.GrupoRegraDTO;
 @FeignClient(name = "${integrador.service.name}", url = "${integrador.service.url}")
 public interface IntegradorClient {
     
-    @GetMapping("/api/v1/regras/listener/{chave}")
+    @GetMapping("/integra/v1/regras/{chave}")
     ResponseEntity<List<BigInteger>> getGrupoRegrasId(@PathVariable("chave") String chave,
                                                       @Valid String cnpjEmpresa,
                                                       @Valid String cnpjContabilidade,
                                                       @Valid Short tipoMovimento);
 
-    @GetMapping("/api/v1/regras/listener/{chave}/{id}")
+    @GetMapping("/integra/v1/regras/{chave}/{id}")
     ResponseEntity<GrupoRegraDTO> getGrupoRegraPorId(@PathVariable("chave") String chave,
                                                      @PathVariable("id") BigInteger id);
 
