@@ -1,11 +1,11 @@
 package br.com.ottimizza.regraslistener.kafka;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
+import br.com.ottimizza.regraslistener.config.kafka.KafkaProperties;
 import br.com.ottimizza.regraslistener.service.RegraService;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
