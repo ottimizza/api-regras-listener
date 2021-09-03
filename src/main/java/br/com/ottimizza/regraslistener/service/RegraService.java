@@ -48,7 +48,7 @@ public class RegraService {
             }
             if(idexRemove != -1) regras.remove(idexRemove);
             grupoRegra.setRegras(regras);
-            particularidades.add(RegraMapper.toSalesForce(grupoRegra));
+            particularidades.add(RegraMapper.toSalesForce(grupoRegra, true));
         }
         System.out.println("Particularidade: "+particularidades);
         salesForceClient.upsertRegrasLote(CHAVE_FEIGN_CLIENT, particularidades);
