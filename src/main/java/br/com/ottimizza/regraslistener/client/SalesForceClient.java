@@ -16,6 +16,6 @@ public interface SalesForceClient {
     
 	@PostMapping("integra/v1/salesforce/composite/tree/Roteiros_vs_Contas__c")
 	public ResponseEntity<String> upsertRegrasLote(@RequestHeader("Authorization") String chave,
-												   @RequestBody List<SFParticularidade> particularidades);
+												   @RequestBody String particularidades);
 
 }

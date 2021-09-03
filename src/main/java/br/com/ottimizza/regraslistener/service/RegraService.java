@@ -31,6 +31,7 @@ public class RegraService {
     
     public void exportarRegrasCrm(String message) throws Exception {
         List<String> ids = MessageUtils.listFromMessage(message);
+        StringBuilder regrasCRM = new StringBuilder();
         List<SFParticularidade> particularidades = new ArrayList<>();
         for(String idS : ids) {
             BigInteger id = BigInteger.valueOf(Integer.parseInt(idS));
@@ -48,10 +49,11 @@ public class RegraService {
             }
             if(idexRemove != -1) regras.remove(idexRemove);
             grupoRegra.setRegras(regras);
-            particularidades.add(RegraMapper.toSalesForce(grupoRegra, true));
+            regrasCRM.append(RegraMapper.toSalesForce(grupoRegra, true).toString()+"#");
         }
-        System.out.println("Particularidade: "+particularidades);
-        salesForceClient.upsertRegrasLote(CHAVE_FEIGN_CLIENT, particularidades);
+        String objetoRegras = regrasCRM.toString().substring(0, regrasCRM.toString().lastIndexOf("#"));
+        System.out.println("Particularidade: "+objetoRegras);
+        salesForceClient.upsertRegrasLote(CHAVE_FEIGN_CLIENT, objetoRegras);
         
     }
    
