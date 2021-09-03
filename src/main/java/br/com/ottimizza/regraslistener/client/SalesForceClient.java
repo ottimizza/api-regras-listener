@@ -14,8 +14,8 @@ import br.com.ottimizza.regraslistener.domain.dto.salesforce.SFParticularidade;
 @FeignClient(name = "${salesforce.service.name}", url = "${salesforce.service.url}")
 public interface SalesForceClient {
     
-	@PostMapping("integra/v1/salesforce/{chave}/composite/tree/Roteiros_vs_Contas__c")
-	public ResponseEntity<String> upsertRegrasLote(@PathVariable("chave") String chave,
+	@PostMapping("integra/v1/salesforce/composite/tree/Roteiros_vs_Contas__c")
+	public ResponseEntity<String> upsertRegrasLote(@RequestHeader("Authorization") String chave,
 												   @RequestBody List<SFParticularidade> particularidades);
 
 }
