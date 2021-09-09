@@ -89,7 +89,7 @@ public class SFParticularidade implements Serializable {
 
     @Override
 	public String toString() {
-		return "{ \"ID_Externo__c\":"+ID_Externo__c+", \"RecordTypeId\":"+"\""+RecordTypeId+"\""+", \"Roteiro__c\":"+"\""+Roteiro__c+"\""+", \"Conta_Movimento__c\":"+"\""+Conta_Movimento__c+"\""+", \"Sequencia_das_Regras__c\":"+"\""+Sequencia_das_Regras__c+"\""+
+		return "{ \"RecordTypeId\":"+"\""+RecordTypeId+"\""+", \"Roteiro__c\":"+"\""+Roteiro__c+"\""+", \"Conta_Movimento__c\":"+"\""+Conta_Movimento__c+"\""+", \"Sequencia_das_Regras__c\":"+"\""+Sequencia_das_Regras__c+"\""+
 				", \"Ordem_OUD__c\":"+"\""+Ordem_OUD__c+"\""+", \"Se_Campo__c\":"+"\""+Se_Campo__c+"\""+", \"O_texto_01__c\":"+"\""+O_texto_01__c+"\""+", \"E_01__c\":"+"\""+E_01__c+"\""+", \"O_texto_02__c\":"+"\""+O_texto_02__c+"\""+", \"E_02__c\":"+"\""+E_02__c+"\""+
                 ", \"O_texto_03__c\":"+"\""+O_texto_03__c+"\""+", \"E_03__c\":"+"\""+E_03__c+"\""+", \"O_texto_04__c\":"+"\""+O_texto_04__c+"\""+", \"E_04__c\":"+"\""+E_04__c+"\""+", \"O_texto_05__c\":"+"\""+O_texto_05__c+"\""+
                 ", \"Conta_Portador__c\":"+"\""+Conta_Portador__c+"\""+", \"Conta_Desconto__c\":"+"\""+Conta_Desconto__c+"\""+", \"Conta_Juros__c\":"+"\""+Conta_Juros__c+"\""+", \"Conta_Multa__c\":"+"\""+Conta_Multa__c+"\"}";
