@@ -16,7 +16,7 @@ import feign.Param;
 @Repository
 public interface AtualizaRoteirosRepository extends JpaRepository<AtualizaRoteiros, BigInteger> {
     
-    @Query(value = "SELECT * atualiza_roteiros  WHERE id_roteiro = :idRoteiro ",nativeQuery = true)
+    @Query(value = "SELECT * FROM atualiza_roteiros  WHERE id_roteiro = :idRoteiro ",nativeQuery = true)
     AtualizaRoteiros buscaPorIdRoteiro(@Param("idRoteiro") String idRoteiro);
 
     @Modifying
