@@ -16,12 +16,12 @@ import feign.Param;
 @Repository
 public interface AtualizaRoteirosRepository extends JpaRepository<AtualizaRoteiros, BigInteger> {
     
-    @Query(value = "SELECT ar.* atualiza_roteiros ar WHERE ar.id_roteiro = :idRoteiro ",nativeQuery = true)
+    @Query(value = "SELECT * atualiza_roteiros  WHERE id_roteiro = :idRoteiro ",nativeQuery = true)
     AtualizaRoteiros buscaPorIdRoteiro(@Param("idRoteiro") String idRoteiro);
 
     @Modifying
 	@Transactional
-	@Query(value = "UPDATE atualiza_roteiros ar SET exportado = true WHERE ar.id_roteiro IN :exportados ",nativeQuery = true)
+	@Query(value = "UPDATE atualiza_roteiros SET exportado = true WHERE id_roteiro IN :exportados ",nativeQuery = true)
 	void updateExportados(@Param("exportados") List<String> exportados) throws Exception;
 
 }
