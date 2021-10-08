@@ -11,9 +11,12 @@ import org.springframework.stereotype.Service;
 import br.com.ottimizza.regraslistener.client.IntegradorClient;
 import br.com.ottimizza.regraslistener.client.SalesForceClient;
 import br.com.ottimizza.regraslistener.domain.dto.GrupoRegraDTO;
+import br.com.ottimizza.regraslistener.domain.dto.ObjetoInfoRoteiro;
 import br.com.ottimizza.regraslistener.domain.dto.Regra;
 import br.com.ottimizza.regraslistener.domain.dto.salesforce.SFParticularidade;
 import br.com.ottimizza.regraslistener.domain.mapper.RegraMapper;
+import br.com.ottimizza.regraslistener.domain.models.AtualizaRoteiros;
+import br.com.ottimizza.regraslistener.repository.AtualizaRoteirosRepository;
 import br.com.ottimizza.regraslistener.utils.MessageUtils;
 import br.com.ottimizza.regraslistener.utils.StringUtils;
 
@@ -26,6 +29,9 @@ public class RegraService {
     @Autowired
     SalesForceClient salesForceClient;
 
+    @Autowired 
+    AtualizaRoteirosRepository atualizaRoteirosRepository;
+
     @Value("${chave-acesso-client}")
     private String CHAVE_FEIGN_CLIENT;
     
@@ -33,11 +39,22 @@ public class RegraService {
         List<String> ids = MessageUtils.listFromMessage(message);
         StringBuilder regrasCRM = new StringBuilder();
         List<SFParticularidade> particularidades = new ArrayList<>();
+        String cnpjContabilidade = "";
+        String cnpjEmpresa = "";
+        String idRoteiro = "";
+        String tipoLancamento = "";
+
         for(String idS : ids) {
             BigInteger id = BigInteger.valueOf(Integer.parseInt(idS));
             GrupoRegraDTO grupoRegra = integradorClient.getGrupoRegraPorId(CHAVE_FEIGN_CLIENT, id).getBody();
             List<Regra> regras = grupoRegra.getRegras();
-            
+            if(cnpjContabilidade.equals("")) {
+                cnpjContabilidade = grupoRegra.getCnpjContabilidade();
+                cnpjEmpresa = grupoRegra.getCnpjEmpresa();
+                idRoteiro = grupoRegra.getIdRoteiro();
+                tipoLancamento = grupoRegra.getTipoLancamento().toString();
+            }
+
             int contador = 0;
             int idexRemove = -1;
             
@@ -52,9 +69,25 @@ public class RegraService {
             regrasCRM.append(RegraMapper.toSalesForce(grupoRegra, true).toString()+"#");
         }
         String objetoRegras = regrasCRM.toString().substring(0, regrasCRM.toString().lastIndexOf("#"));
-        System.out.println("Particularidade: "+objetoRegras);
         salesForceClient.upsertRegrasLote(CHAVE_FEIGN_CLIENT, objetoRegras);
         
+        AtualizaRoteiros roteiro = atualizaRoteirosRepository.buscaPorIdRoteiro(idRoteiro);
+        if(roteiro != null){
+            roteiro.setExportado(false);
+        }
+        else {
+            ObjetoInfoRoteiro infoRoteiro = ObjetoInfoRoteiro.builder()
+                    .cnpjEmpresa(cnpjEmpresa)
+                    .idRoteiro(idRoteiro)
+                    .tipoLancamento(tipoLancamento)
+                .build();
+            roteiro = AtualizaRoteiros.builder()
+                    .idRoteiro(idRoteiro)
+                    .infoRoteiro(infoRoteiro)
+                    .exportado(false)
+                .build();
+        }
+        atualizaRoteirosRepository.save(roteiro);
     }
    
 
