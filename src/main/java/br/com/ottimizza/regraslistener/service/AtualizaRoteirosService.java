@@ -14,10 +14,10 @@ public class AtualizaRoteirosService {
     @Autowired
     AtualizaRoteirosRepository repository;
 
-    public String updateExportados(List<BigInteger> ids) throws Exception {
+    public String updateExportados(List<String> idsRoteiros) throws Exception {
 		StringBuilder retorno = new StringBuilder();
         try {
-			repository.updateExportados(ids);
+			repository.updateExportados(idsRoteiros);
             retorno.append("{\"status\":\"Success\",");
             retorno.append("\"message\":\"Item atualizado com sucesso!\"}");
 		} catch (Exception e) {

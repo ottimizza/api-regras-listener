@@ -20,7 +20,7 @@ public class AtualizaRoteirosController {
     AtualizaRoteirosService service;
 
     @PostMapping("/exportados")
-    public ResponseEntity<?> atualizaExportados(@RequestBody List<BigInteger> roteirosIds) throws Exception {
+    public ResponseEntity<?> atualizaExportados(@RequestBody List<String> roteirosIds) throws Exception {
         String response = service.updateExportados(roteirosIds);
         return ResponseEntity.ok(response);
     }
