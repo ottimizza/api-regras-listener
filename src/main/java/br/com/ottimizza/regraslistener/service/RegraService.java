@@ -11,9 +11,12 @@ import org.springframework.stereotype.Service;
 import br.com.ottimizza.regraslistener.client.IntegradorClient;
 import br.com.ottimizza.regraslistener.client.SalesForceClient;
 import br.com.ottimizza.regraslistener.domain.dto.GrupoRegraDTO;
+import br.com.ottimizza.regraslistener.domain.dto.HistoricoDTO;
 import br.com.ottimizza.regraslistener.domain.dto.ObjetoInfoRoteiro;
 import br.com.ottimizza.regraslistener.domain.dto.Regra;
+import br.com.ottimizza.regraslistener.domain.dto.salesforce.SFHistorico;
 import br.com.ottimizza.regraslistener.domain.dto.salesforce.SFParticularidade;
+import br.com.ottimizza.regraslistener.domain.mapper.HistoricoMapper;
 import br.com.ottimizza.regraslistener.domain.mapper.RegraMapper;
 import br.com.ottimizza.regraslistener.domain.models.AtualizaRoteiros;
 import br.com.ottimizza.regraslistener.repository.AtualizaRoteirosRepository;
@@ -36,15 +39,19 @@ public class RegraService {
     private String CHAVE_FEIGN_CLIENT;
     
     public void exportarRegrasCrm(String message) throws Exception {
-        List<String> ids = MessageUtils.listFromMessage(message);
+        List<String> grupoRegrasIds = MessageUtils.listFromMessage(message.substring(0, message.indexOf("@")));
+        List<String> historicosIds = MessageUtils.listFromMessage(message.substring(message.indexOf("@")));
+        System.out.println("gr "+grupoRegrasIds);
+        System.out.println("h "+historicosIds);
         StringBuilder regrasCRM = new StringBuilder();
+        StringBuilder historicosCRM = new StringBuilder();
         List<SFParticularidade> particularidades = new ArrayList<>();
         String cnpjContabilidade = "";
         String cnpjEmpresa = "";
         String idRoteiro = "";
         String tipoLancamento = "";
 
-        for(String idS : ids) {
+        for(String idS : grupoRegrasIds) {
             BigInteger id = BigInteger.valueOf(Integer.parseInt(idS));
             GrupoRegraDTO grupoRegra = integradorClient.getGrupoRegraPorId(CHAVE_FEIGN_CLIENT, id).getBody();
             List<Regra> regras = grupoRegra.getRegras();
@@ -71,8 +78,16 @@ public class RegraService {
         String objetoRegras = regrasCRM.toString().substring(0, regrasCRM.toString().lastIndexOf("#"));
         salesForceClient.upsertRegrasLote(CHAVE_FEIGN_CLIENT, objetoRegras);
         
-        
-       ObjetoInfoRoteiro infoRoteiro = ObjetoInfoRoteiro.builder()
+        for(String idH : historicosIds) {
+            BigInteger id = BigInteger.valueOf(Integer.parseInt(idH));
+            HistoricoDTO historico = integradorClient.getHistoricoPorId(CHAVE_FEIGN_CLIENT, id).getBody();
+            historicosCRM.append(HistoricoMapper.toSalesForce(historico)+"#");
+        }
+
+        String objetoHistoricos = historicosCRM.toString().substring(0, historicosCRM.toString().lastIndexOf("#"));
+        salesForceClient.upsertHistoricosLote(CHAVE_FEIGN_CLIENT, objetoHistoricos);
+
+        ObjetoInfoRoteiro infoRoteiro = ObjetoInfoRoteiro.builder()
                 .cnpjEmpresa(cnpjEmpresa)
                 .idRoteiro(idRoteiro)
                 .tipoLancamento(tipoLancamento)

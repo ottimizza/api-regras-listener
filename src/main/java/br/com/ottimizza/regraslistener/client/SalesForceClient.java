@@ -18,4 +18,10 @@ public interface SalesForceClient {
 	public ResponseEntity<String> upsertRegrasLote(@RequestHeader("Authorization") String chave,
 												   @RequestBody String particularidades);
 
+	@PostMapping("integra/v1/salesforce/composite/tree/Roteiro_vs_Historio__c")
+	public ResponseEntity<String> upsertHistoricosLote(@RequestHeader("Authorization") String chave,
+														@RequestBody String historicos);
+											   
+
+
 }
