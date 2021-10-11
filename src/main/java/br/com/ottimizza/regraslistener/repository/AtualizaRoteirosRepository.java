@@ -21,7 +21,7 @@ public interface AtualizaRoteirosRepository extends JpaRepository<AtualizaRoteir
 
     @Modifying
 	@Transactional
-	@Query(value = "UPDATE atualiza_roteiros SET exportado = true WHERE id_roteiro IN :exportados ",nativeQuery = true)
+	@Query(value = "UPDATE atualiza_roteiros SET exportado = true WHERE id IN :exportados ",nativeQuery = true)
 	void updateExportados(@Param("exportados") List<BigInteger> exportados) throws Exception;
 
 }
