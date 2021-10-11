@@ -71,21 +71,16 @@ public class RegraService {
         String objetoRegras = regrasCRM.toString().substring(0, regrasCRM.toString().lastIndexOf("#"));
         salesForceClient.upsertRegrasLote(CHAVE_FEIGN_CLIENT, objetoRegras);
         
-        AtualizaRoteiros roteiro = atualizaRoteirosRepository.buscaPorIdRoteiro(idRoteiro);
-        if(roteiro != null){
-            roteiro.setExportado(false);
-        }
-        else {
-            ObjetoInfoRoteiro infoRoteiro = ObjetoInfoRoteiro.builder()
-                    .cnpjEmpresa(cnpjEmpresa)
-                    .idRoteiro(idRoteiro)
-                    .tipoLancamento(tipoLancamento)
-                .build();
-            roteiro = AtualizaRoteiros.builder()
-                    .infoRoteiro(infoRoteiro)
-                    .exportado(false)
-                .build();
-        }
+        
+       ObjetoInfoRoteiro infoRoteiro = ObjetoInfoRoteiro.builder()
+                .cnpjEmpresa(cnpjEmpresa)
+                .idRoteiro(idRoteiro)
+                .tipoLancamento(tipoLancamento)
+            .build();
+        AtualizaRoteiros roteiro = AtualizaRoteiros.builder()
+                .infoRoteiro(infoRoteiro)
+                .exportado(false)
+            .build();
         atualizaRoteirosRepository.save(roteiro);
     }
    
