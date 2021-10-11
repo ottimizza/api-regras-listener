@@ -82,7 +82,6 @@ public class RegraService {
                     .tipoLancamento(tipoLancamento)
                 .build();
             roteiro = AtualizaRoteiros.builder()
-                    .idRoteiro(idRoteiro)
                     .infoRoteiro(infoRoteiro)
                     .exportado(false)
                 .build();

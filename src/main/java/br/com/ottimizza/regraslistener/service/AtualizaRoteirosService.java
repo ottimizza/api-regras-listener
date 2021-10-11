@@ -14,7 +14,7 @@ public class AtualizaRoteirosService {
     @Autowired
     AtualizaRoteirosRepository repository;
 
-    public String updateExportados(List<String> idsRoteiros) throws Exception {
+    public String updateExportados(List<BigInteger> idsRoteiros) throws Exception {
 		StringBuilder retorno = new StringBuilder();
         try {
 			repository.updateExportados(idsRoteiros);

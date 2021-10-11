@@ -30,8 +30,10 @@ import lombok.NoArgsConstructor;
 public class AtualizaRoteiros {
     
     @Id
-    @Column(name = "id_roteiro", nullable = false)
-    private String idRoteiro;
+    @Column(name = "id", nullable = false)
+    @SequenceGenerator(name = "atualiza_roteiros_sequence", sequenceName = "atualiza_roteiros_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "atualiza_roteiros_sequence")
+	private BigInteger id;
 
     @Type(type = "jsonb")
     @Column(name = "info_roteiros",columnDefinition = "jsonb")
