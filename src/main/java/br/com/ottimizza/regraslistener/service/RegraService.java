@@ -39,9 +39,10 @@ public class RegraService {
     private String CHAVE_FEIGN_CLIENT;
     
     public void exportarRegrasCrm(String message) throws Exception {
-        System.out.println(message);
-        List<String> grupoRegrasIds = MessageUtils.listFromMessage(message.substring(0, message.indexOf("@")));
-        List<String> historicosIds = MessageUtils.listFromMessage(message.substring(message.indexOf("@") + 1));
+        String messageString = message.substring(message.indexOf("message\":\""), message.lastIndexOf("\""));
+        System.out.println(messageString);
+        List<String> grupoRegrasIds = MessageUtils.listFromMessage(messageString.substring(0, message.indexOf("@")));
+        List<String> historicosIds = MessageUtils.listFromMessage(messageString.substring(message.indexOf("@")));
         System.out.println("gr "+grupoRegrasIds);
         System.out.println("h "+historicosIds);
         StringBuilder regrasCRM = new StringBuilder();
