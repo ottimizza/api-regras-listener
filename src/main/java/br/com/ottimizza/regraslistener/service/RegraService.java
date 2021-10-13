@@ -40,9 +40,10 @@ public class RegraService {
     
     public void exportarRegrasCrm(String message) throws Exception {
         String messageString = message.substring(message.indexOf("message\":\""), message.lastIndexOf("\""));
+        messageString = messageString.substring(messageString.indexOf("{"), messageString.lastIndexOf("}"));
         System.out.println(messageString);
-        List<String> grupoRegrasIds = MessageUtils.listFromMessage(messageString.substring(0, message.indexOf("@")));
-        List<String> historicosIds = MessageUtils.listFromMessage(messageString.substring(message.indexOf("@")));
+        List<String> grupoRegrasIds = MessageUtils.listFromMessage(messageString.substring(0, messageString.indexOf("@")));
+        List<String> historicosIds = MessageUtils.listFromMessage(messageString.substring(messageString.indexOf("@")));
         System.out.println("gr "+grupoRegrasIds);
         System.out.println("h "+historicosIds);
         StringBuilder regrasCRM = new StringBuilder();
