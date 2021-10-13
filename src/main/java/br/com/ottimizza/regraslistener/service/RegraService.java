@@ -82,6 +82,7 @@ public class RegraService {
             regrasCRM.append(RegraMapper.toSalesForce(grupoRegra, true).toString()+"#");
         }
         String objetoRegras = regrasCRM.toString().substring(0, regrasCRM.toString().lastIndexOf("#"));
+        System.out.println(objetoRegras);
         salesForceClient.upsertRegrasLote(CHAVE_FEIGN_CLIENT, objetoRegras);
         
         for(String idH : historicosIds) {
@@ -89,8 +90,9 @@ public class RegraService {
             HistoricoDTO historico = integradorClient.getHistoricoPorId(CHAVE_FEIGN_CLIENT, id).getBody();
             historicosCRM.append(HistoricoMapper.toSalesForce(historico)+"#");
         }
-
+        
         String objetoHistoricos = historicosCRM.toString().substring(0, historicosCRM.toString().lastIndexOf("#"));
+        System.out.println(objetoHistoricos);
         salesForceClient.upsertHistoricosLote(CHAVE_FEIGN_CLIENT, objetoHistoricos);
 
         ObjetoInfoRoteiro infoRoteiro = ObjetoInfoRoteiro.builder()
