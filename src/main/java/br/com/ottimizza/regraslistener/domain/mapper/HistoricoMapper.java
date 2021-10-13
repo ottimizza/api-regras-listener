@@ -45,6 +45,7 @@ public class HistoricoMapper {
     	
     	return SFHistorico.builder()
     			.RecordTypeId(SFHistorico.RECORD_TYPE_ID)
+				.ID_Externo__c(historico.getId().toString())
     			.Roteiro__c(historico.getIdRoteiro())
     			.Codigo_Historico__c(codigoHistorico)
     			.Se_Campo__c("Conta Normal - Movimento - igual a ")

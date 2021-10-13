@@ -88,7 +88,7 @@ public class RegraService {
         for(String idH : historicosIds) {
             BigInteger id = BigInteger.valueOf(Integer.parseInt(idH));
             HistoricoDTO historico = integradorClient.getHistoricoPorId(CHAVE_FEIGN_CLIENT, id).getBody();
-            historicosCRM.append(HistoricoMapper.toSalesForce(historico)+"#");
+            historicosCRM.append(HistoricoMapper.toSalesForce(historico).toString()+"#");
         }
         
         String objetoHistoricos = historicosCRM.toString().substring(0, historicosCRM.toString().lastIndexOf("#"));

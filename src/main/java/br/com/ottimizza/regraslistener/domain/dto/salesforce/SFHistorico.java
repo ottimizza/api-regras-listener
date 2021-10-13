@@ -68,4 +68,12 @@ public class SFHistorico implements Serializable {
 	
 	@JsonProperty(value = "Campo_05__c")
 	private String Campo_05__c;
+
+	@Override
+	public String toString() {
+		return "{ \"ID_Externo__c\":"+ID_Externo__c+", \"RecordTypeId\":"+"\""+RecordTypeId+"\""+", \"Roteiro__c\":"+"\""+Roteiro__c+"\""+", \"Codigo_Historico__c\":"+"\""+Codigo_Historico__c+"\""+", \"Se_Campo__c\":"+"\""+Se_Campo__c+"\""+
+				", \"O_texto_01__c\":"+"\""+O_texto_01__c+"\""+", \"Texto_01__c\":"+"\""+Texto_01__c+"\""+", \"Campo_01__c\":"+"\""+Campo_01__c+"\""+", \"Texto_02__c\":"+"\""+Texto_02__c+"\""+", \"Campo_02__c\":"+"\""+Campo_02__c+"\""+", \"Texto_03__c\":"+"\""+Texto_03__c+"\""+
+                ", \"Campo_03__c\":"+"\""+Campo_03__c+"\""+", \"Texto_04__c\":"+"\""+Texto_04__c+"\""+", \"Campo_04__c\":"+"\""+Campo_04__c+"\""+", \"Texto_05__c\":"+"\""+Texto_05__c+"\""+", \"Campo_05__c\":"+"\""+Campo_05__c+"\"}";
+	}
+
 }
