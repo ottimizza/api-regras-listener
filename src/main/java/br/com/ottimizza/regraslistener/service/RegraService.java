@@ -41,8 +41,8 @@ public class RegraService {
     public void exportarRegrasCrm(String message) throws Exception {
         String messageString = message.substring(message.indexOf("message\":\""), message.lastIndexOf("\""));
         messageString = messageString.substring(messageString.indexOf("{"), messageString.lastIndexOf("}")+ 1);
-        String gpString = messageString.substring(messageString.indexOf("{" +1), messageString.indexOf("@")-1);
-        String hsString = messageString.substring(messageString.indexOf("@") + 1, messageString.lastIndexOf("}"));
+        String gpString = messageString.substring(messageString.indexOf("{" +2), messageString.indexOf("@")-1);
+        String hsString = messageString.substring(messageString.indexOf("@") + 2, messageString.lastIndexOf("}"));
         System.out.println(gpString);
         System.out.println(hsString);
         String[] grupoRegrasIds = gpString.split(",");
