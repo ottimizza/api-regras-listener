@@ -19,5 +19,8 @@ public class ObjetoInfoRoteiro {
     private String cnpjEmpresa;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String cnpjContabilidade;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String tipoLancamento;
 }
