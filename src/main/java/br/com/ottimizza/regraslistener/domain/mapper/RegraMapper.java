@@ -10,6 +10,10 @@ public class RegraMapper {
 
     public static SFParticularidade toSalesForce(GrupoRegraDTO grupoRegra, boolean comIdExterno) {
     	String sequenciaRegras = "500";
+		String contaDesconto = "";
+		String contaJuros = "";
+		String contaMulta = "";
+		String contaPortador = "";
     	
     	List<Regra> regras = grupoRegra.getRegras();
     	String e01 = ""; 
@@ -45,6 +49,18 @@ public class RegraMapper {
     		sequenciaRegras = "550";
     	}
     	
+		if(grupoRegra.getContaDesconto() != null && !grupoRegra.getContaDesconto().equals(""))
+			contaDesconto = grupoRegra.getContaDesconto();
+
+		if(grupoRegra.getContaJuros() != null && !grupoRegra.getContaJuros().equals(""))
+			contaJuros = grupoRegra.getContaJuros();
+			
+		if(grupoRegra.getContaMulta() != null && !grupoRegra.getContaMulta().equals(""))
+			contaMulta = grupoRegra.getContaMulta();
+
+		if(grupoRegra.getContaPortador() != null && !grupoRegra.getContaPortador().equals(""))
+			contaPortador = grupoRegra.getContaPortador();
+
     	SFParticularidade s = SFParticularidade.builder()
     			.RecordTypeId(SFParticularidade.RECORD_TYPE_ID)
     			.Roteiro__c(grupoRegra.getIdRoteiro())
@@ -61,10 +77,10 @@ public class RegraMapper {
     			.O_texto_05__c(txt05)
     			.Sequencia_das_Regras__c(sequenciaRegras)
     			.Ordem_OUD__c(grupoRegra.getPosicao())
-				.Conta_Desconto__c(grupoRegra.getContaDesconto())
-				.Conta_Juros__c(grupoRegra.getContaJuros())
-				.Conta_Multa__c(grupoRegra.getContaMulta())
-				.Conta_Portador__c(grupoRegra.getContaPortador())
+				.Conta_Desconto__c(contaDesconto)
+				.Conta_Juros__c(contaJuros)
+				.Conta_Multa__c(contaMulta)
+				.Conta_Portador__c(contaPortador)
     		.build();
     	
     	if(comIdExterno) s.setID_Externo__c(grupoRegra.getId().toString());
@@ -78,6 +94,10 @@ public class RegraMapper {
 
     public static SFParticularidade toSalesForce(GrupoRegraDTO grupoRegra, List<Regra> regras, boolean comIdExterno) {
     	String sequenciaRegras = "500";
+		String contaDesconto = "";
+		String contaJuros = "";
+		String contaMulta = "";
+		String contaPortador = "";
     	
     	String e01 = ""; 
     	String txt02 = "";	
@@ -112,6 +132,18 @@ public class RegraMapper {
     		sequenciaRegras = "550";
     	}
     	
+    	if(grupoRegra.getContaDesconto() != null && !grupoRegra.getContaDesconto().equals(""))
+			contaDesconto = grupoRegra.getContaDesconto();
+
+		if(grupoRegra.getContaJuros() != null && !grupoRegra.getContaJuros().equals(""))
+			contaJuros = grupoRegra.getContaJuros();
+			
+		if(grupoRegra.getContaMulta() != null && !grupoRegra.getContaMulta().equals(""))
+			contaMulta = grupoRegra.getContaMulta();
+
+		if(grupoRegra.getContaPortador() != null && !grupoRegra.getContaPortador().equals(""))
+			contaPortador = grupoRegra.getContaPortador();
+
     	SFParticularidade s = SFParticularidade.builder()
     			.RecordTypeId(SFParticularidade.RECORD_TYPE_ID)
     			.Roteiro__c(grupoRegra.getIdRoteiro())
@@ -128,10 +160,10 @@ public class RegraMapper {
     			.O_texto_05__c(txt05)
     			.Sequencia_das_Regras__c(sequenciaRegras)
     			.Ordem_OUD__c(grupoRegra.getPosicao())
-				.Conta_Desconto__c(grupoRegra.getContaDesconto())
-				.Conta_Juros__c(grupoRegra.getContaJuros())
-				.Conta_Multa__c(grupoRegra.getContaMulta())
-				.Conta_Portador__c(grupoRegra.getContaPortador())
+				.Conta_Desconto__c(contaDesconto)
+				.Conta_Juros__c(contaJuros)
+				.Conta_Multa__c(contaMulta)
+				.Conta_Portador__c(contaPortador)
     		.build();
     	
     	if(comIdExterno) s.setID_Externo__c(grupoRegra.getId().toString());

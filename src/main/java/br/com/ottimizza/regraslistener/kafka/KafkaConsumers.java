@@ -8,9 +8,6 @@ import org.springframework.stereotype.Component;
 import br.com.ottimizza.regraslistener.config.kafka.KafkaProperties;
 import br.com.ottimizza.regraslistener.service.RegraService;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-
 @Component
 public class KafkaConsumers {
 
@@ -22,14 +19,8 @@ public class KafkaConsumers {
     
     @KafkaListener(topics = "#{kafkaProperties.getPrefix()}ottimizza.exportar.regras.oud", 
             	   groupId = "#{kafkaProperties.getPrefix()}tareffa-queue-events-group")
-    public void integraArquivo(@Payload String message) throws JsonProcessingException, JsonMappingException {
-    	
-    	try {
-			service.exportarRegrasCrm(message);
-    	} catch (Exception e) {
-    		System.out.println("Error service.exportarRegras --> "+e.getMessage());
-		}
-
+    public void integraArquivo(@Payload String message) throws Exception {
+    	service.exportarRegrasCrm(message);
     }
 }
 
