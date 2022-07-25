@@ -67,8 +67,8 @@ public class RegraService {
         try {
             if(grupoRegrasIds.length > 0) {
                 for(String idS : grupoRegrasIds) {
-                    if(idS != null && !idS.equals("")){
-                    BigInteger id = BigInteger.valueOf(Integer.parseInt(idS));
+                    if(idS != null && !idS.equals("")) {
+                        BigInteger id = BigInteger.valueOf(Integer.parseInt(idS));
                         GrupoRegraDTO grupoRegra = integradorClient.getGrupoRegraPorId(CHAVE_FEIGN_CLIENT, id).getBody();
                         List<Regra> regras = grupoRegra.getRegras();
                         if(cnpjContabilidade.equals("")) {
@@ -80,18 +80,23 @@ public class RegraService {
 
                         int contador = 0;
                         int idexRemove = -1;
-            
-                        for(Regra regra : regras) {
-                            String campo = regra.getCampo();
-                            if(campo.contains("tipoMovimento")) idexRemove = contador;
-                            regra.setCampo(StringUtils.trataProSalesForce(campo, regra.getCondicao()));
-                            contador ++;
+                        try { 
+                            for(Regra regra : regras) {
+                                String campo = regra.getCampo();
+                                if(campo.contains("tipoMovimento")) idexRemove = contador;
+                                regra.setCampo(StringUtils.trataProSalesForce(campo, regra.getCondicao()));
+                                contador ++;
+                            }
+                            if(idexRemove != -1) regras.remove(idexRemove);
+                                grupoRegra.setRegras(regras);
+                            regrasCRM.append(RegraMapper.toSalesForce(grupoRegra, true).toString()+"#");
                         }
-                        if(idexRemove != -1) regras.remove(idexRemove);
-                        grupoRegra.setRegras(regras);
-                        regrasCRM.append(RegraMapper.toSalesForce(grupoRegra, true).toString()+"#");
+                        catch (Exception exR) {
+                            System.out.println("Error regra id: "+id);
+                            continue;
+                        }
+                    }
                 }
-            }
                 String objetoRegras = "";
                 if(regrasCRM.toString().contains("#"))
                     objetoRegras = regrasCRM.toString().substring(0, regrasCRM.toString().lastIndexOf("#"));
